@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace OrderProcessing
 {
     public class Program
@@ -12,6 +14,14 @@ namespace OrderProcessing
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            #region DB
+            builder.Services.AddDbContext<DataContext>(options => options.UseSqlite(
+                    builder.Configuration.GetConnectionString("SQLite")
+                ));
+            builder.Services.AddScoped<IRepository<Order>, SQLiteOrderRepository>();
+            #endregion
+
 
             var app = builder.Build();
 

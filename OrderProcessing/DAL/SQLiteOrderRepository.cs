@@ -13,7 +13,7 @@
         {
             _dataContext.Orders.Add(entity);
             _dataContext.SaveChanges();
-            int returnValue = 0;
+            int returnValue = _dataContext.Orders.OrderBy(x => x.Id).Last().Id;
             return returnValue;
         }
 

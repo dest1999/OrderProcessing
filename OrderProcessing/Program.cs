@@ -22,6 +22,11 @@ namespace OrderProcessing
             builder.Services.AddScoped<IRepository<Order>, SQLiteOrderRepository>();
             #endregion
 
+            #region Core logic services
+            builder.Services.AddScoped<IInputOrderHandler, InputOrderHandler>();
+
+            #endregion
+
 
             var app = builder.Build();
 

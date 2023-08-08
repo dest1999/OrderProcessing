@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/OrderProcessing/SQLite.db
+/OrderProcessing/SQLite.db-shm
+/OrderProcessing/SQLite.db-wal
+/OrderProcessing/SQLiteStudio-3.4.3.lnk

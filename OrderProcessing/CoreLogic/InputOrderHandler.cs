@@ -1,4 +1,6 @@
-﻿namespace OrderProcessing
+﻿using System.Text.Json;
+
+namespace OrderProcessing
 {
     public interface IInputOrderHandler
     {
@@ -16,15 +18,23 @@
 
         public void CreateNewOrder(SystemType systemType, string incomingJSON)
         {
-            _repository.Create(new Order()
+            var jsonDocumentRoot = JsonDocument.Parse(incomingJSON).RootElement;
+
+            //Если значение извлеклось успешно то сохраняем в БД
+            if (int.TryParse(jsonDocumentRoot.GetProperty("orderNumber").ToString(), out int orderNumber))
             {
-                SystemType = systemType,
-                OrderNumber = 0, //TODO need fix to real number
-                SourceOrder = incomingJSON,
-                ConvertedOrder = string.Empty,
-                OrderStatus = OrderStatus.New,
-                CreatedAt = DateTime.Now
-            });
+                _repository.Create(new Order()
+                {
+                    SystemType = systemType,
+                    OrderNumber = orderNumber,
+                    SourceOrder = incomingJSON,
+                    ConvertedOrder = string.Empty,
+                    OrderStatus = OrderStatus.New,
+                    CreatedAt = DateTime.Now
+                });
+            }
+            //TODO Сдесь нужно уточнить если значение не корректно
+            //Иначе что-то не так кинем исключение?
         }
     }
 }

@@ -29,13 +29,16 @@ namespace OrderProcessing
         public async Task<IEnumerable<Order>> ReadAllByStatusAsync(OrderStatus status)
         {
             var db = _dataContext;
-            var returnValue = await db.Orders.Where(x => x.OrderStatus == OrderStatus.New).ToListAsync() ;
+            var returnValue = await db.Orders.Where(x => x.OrderStatus == OrderStatus.New).ToListAsync();
             return returnValue;
         }
 
-        public bool Update(Order entity)
+        public async Task<int> UpdateAsync(Order entity)
         {
-            throw new NotImplementedException();
+            var db = _dataContext;
+            db.Orders.Update(entity);
+            var returnValue = await db.SaveChangesAsync();
+            return returnValue;
         }
     }
 }

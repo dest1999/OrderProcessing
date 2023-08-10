@@ -5,6 +5,6 @@
         Task<int> CreateAsync(T entity);
         T Read(OrderStatus status);
         Task<IEnumerable<T>> ReadAllByStatusAsync(OrderStatus status);
-        bool Update(T entity);
+        Task<int> UpdateAsync(Order entity);
     }
 }

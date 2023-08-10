@@ -16,21 +16,21 @@ namespace OrderProcessing
         [HttpPost("talabat")]
         public IActionResult CreateTalabat(string order)
         {
-            _inputOrderHandler.CreateNewOrder(SystemType.talabat, order);
+            _inputOrderHandler.CreateNewOrderAsync(SystemType.talabat, order);
             return Ok( order);
         }
 
         [HttpPost("zomato")]
         public IActionResult CreateZomato(string order)
         {
-            _inputOrderHandler.CreateNewOrder(SystemType.zomato, order);
+            _inputOrderHandler.CreateNewOrderAsync(SystemType.zomato, order);
             return Ok(order);
         }
 
         [HttpPost("uber")]
         public IActionResult CreateUber(string order)
         {
-            _inputOrderHandler.CreateNewOrder(SystemType.uber, order);
+            _inputOrderHandler.CreateNewOrderAsync(SystemType.uber, order);
             return Ok(order);
         }
 

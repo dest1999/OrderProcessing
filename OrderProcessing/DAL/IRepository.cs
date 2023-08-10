@@ -2,9 +2,9 @@
 {
     public interface IRepository<T> where T : Order
     {
-        int Create(T entity);
+        Task<int> CreateAsync(T entity);
         T Read(OrderStatus status);
-        IEnumerable<T> ReadAll(OrderStatus status);
+        Task<IEnumerable<T>> ReadAllByStatusAsync(OrderStatus status);
         bool Update(T entity);
     }
 }

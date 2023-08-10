@@ -1,4 +1,6 @@
-﻿namespace OrderProcessing
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace OrderProcessing
 {
     public class SQLiteOrderRepository : IRepository<Order>
     {
@@ -9,11 +11,13 @@
             _dataContext = dataContext;
         }
 
-        public int Create(Order entity)
+        public async Task<int> CreateAsync(Order entity)
         {
-            _dataContext.Orders.Add(entity);
-            _dataContext.SaveChanges();
-            int returnValue = _dataContext.Orders.OrderBy(x => x.Id).Last().Id;
+            var db = _dataContext;
+
+            db.Orders.Add(entity);
+            await db.SaveChangesAsync();
+            int returnValue = db.Orders.OrderBy(x => x.Id).Last().Id;
             return returnValue;
         }
 
@@ -22,9 +26,11 @@
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Order> ReadAll(OrderStatus status)
+        public async Task<IEnumerable<Order>> ReadAllByStatusAsync(OrderStatus status)
         {
-            throw new NotImplementedException();
+            var db = _dataContext;
+            var returnValue = await db.Orders.Where(x => x.OrderStatus == OrderStatus.New).ToListAsync() ;
+            return returnValue;
         }
 
         public bool Update(Order entity)

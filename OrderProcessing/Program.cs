@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using OrderProcessing.CoreLogic.Handlers;
 
 namespace OrderProcessing
 {
@@ -28,6 +29,9 @@ namespace OrderProcessing
             builder.Services.AddHostedService<ServicesHostedContainer>();
             builder.Services.AddScoped<IMainProcessingContainer, MainProcessingContainer>();
 
+            builder.Services.AddScoped<IHandler, Talabat>();
+            builder.Services.AddScoped<IHandler, Zomato>();
+            builder.Services.AddScoped<IHandler, Uber>();
             #endregion
 
 

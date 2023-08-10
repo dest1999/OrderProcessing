@@ -2,32 +2,40 @@
 {
     public interface IMainProcessingContainer
     {
-        Task StartAsync();
+        Task StartAsync(IEnumerable<IHandler> handlers);
     }
 
     public class MainProcessingContainer : IMainProcessingContainer
     {
-
-
         private IRepository<Order> _repository;
         private IEnumerable<Order> _orders;
 
         public MainProcessingContainer(IRepository<Order> repository)
         {
             _repository = repository;
-
-            
         }
 
         
-        public async Task StartAsync()
+        public async Task StartAsync(IEnumerable<IHandler> handlers)
         {
             Console.Clear();
             _orders = await _repository.ReadAllByStatusAsync(OrderStatus.New);
             Console.WriteLine($"Readed orders: {_orders.Count()}");
+            
             foreach (var order in _orders)
             {
-                Console.WriteLine(order.OrderNumber);
+                foreach (var handler in handlers)
+                {
+                    if (handler.IsSuccess(order))
+                    {
+                        continue;
+                    }
+                    
+
+                }
+
+
+
             }
             
         }

@@ -6,11 +6,8 @@
         {
             if (order.SystemType == SystemType.zomato)
             {
-
-                Console.WriteLine("Zomato detected");
-                Console.WriteLine($"Order number: {order.OrderNumber}");
-
-                return true;
+                //TODO Выделить исключение в отдельный класс
+                throw new Exception("Zomato detected");
             }
             return false;
         }

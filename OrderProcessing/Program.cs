@@ -25,6 +25,9 @@ namespace OrderProcessing
             #region Core logic services
             builder.Services.AddScoped<IInputOrderHandler, InputOrderHandler>();
 
+            builder.Services.AddHostedService<ServicesHostedContainer>();
+            builder.Services.AddScoped<IMainProcessingContainer, MainProcessingContainer>();
+
             #endregion
 
 

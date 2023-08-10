@@ -5,13 +5,12 @@ namespace OrderProcessing
     public class ServicesHostedContainer : BackgroundService
     {
         public IServiceProvider Services { get; }
-
+        private IEnumerable<IHandler> handlers;
         private static System.Timers.Timer _timer = new(5000)
         {
             AutoReset = true,
             Enabled = true,
         };
-
 
         public ServicesHostedContainer(IServiceProvider services)
         {
@@ -26,10 +25,7 @@ namespace OrderProcessing
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Console.WriteLine("ServicesHostedContainer is running");
-
             await CallProcessingContainer();
-
         }
 
         private async Task CallProcessingContainer()
@@ -37,8 +33,9 @@ namespace OrderProcessing
             using (var scope = Services.CreateScope())
             {
                 var scopedProcessingService = scope.ServiceProvider.GetRequiredService<IMainProcessingContainer>();
+                handlers = scope.ServiceProvider.GetServices<IHandler>();
 
-                await scopedProcessingService.StartAsync();
+                await scopedProcessingService.StartAsync(handlers);
             }
         }
     }

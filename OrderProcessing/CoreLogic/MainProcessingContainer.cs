@@ -26,20 +26,23 @@
             {
                 foreach (var handler in handlers)
                 {
-                    if (handler.TryToHandleOrder(order))
+                    try
                     {
-                        continue;
+                        if (handler.TryToHandleOrder(order).Result)
+                        {
+                            order.OrderStatus = OrderStatus.ProcessedSuccessfully;
+                            await _repository.UpdateAsync(order);
+                            break;
+                        }
                     }
-                    
-
+                    catch (Exception)
+                    {//TODO выделить для исключения специфический класс
+                        order.OrderStatus = OrderStatus.Error;
+                        await _repository.UpdateAsync(order);
+                        break;
+                    }
                 }
-
-
-
             }
-            
         }
-
-
     }
 }

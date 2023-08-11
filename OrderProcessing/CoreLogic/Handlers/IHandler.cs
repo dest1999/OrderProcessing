@@ -2,6 +2,7 @@
 {
     public interface IHandler
     {
-        bool TryToHandleOrder(Order order);
+        Task<bool> TryToHandleOrder(Order order);
+        //bool TryToHandleOrder(Order order);
     }
 }

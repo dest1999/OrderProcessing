@@ -14,13 +14,10 @@
         {
             _repository = repository;
         }
-
         
         public async Task StartAsync(IEnumerable<IHandler> handlers)
         {
-            Console.Clear();
             _orders = await _repository.ReadAllByStatusAsync(OrderStatus.New);
-            Console.WriteLine($"Readed orders: {_orders.Count()}");
             
             foreach (var order in _orders)
             {
@@ -28,8 +25,10 @@
                 {
                     try
                     {
-                        if (handler.TryToHandleOrder(order).Result)
+                        if (handler.IsOrderMatching(order).Result)
                         {
+                            string str = handler.ChangeOrderJSON(order.SourceOrder);
+                            order.ConvertedOrder = str;
                             order.OrderStatus = OrderStatus.ProcessedSuccessfully;
                             await _repository.UpdateAsync(order);
                             break;

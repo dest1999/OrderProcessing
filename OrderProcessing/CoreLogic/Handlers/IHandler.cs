@@ -2,7 +2,7 @@
 {
     public interface IHandler
     {
-        Task<bool> TryToHandleOrder(Order order);
-        //bool TryToHandleOrder(Order order);
+        Task<bool> IsOrderMatching(Order order);
+        string ChangeOrderJSON(string json);
     }
 }

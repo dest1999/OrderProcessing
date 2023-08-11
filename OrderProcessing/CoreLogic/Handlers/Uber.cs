@@ -2,7 +2,12 @@
 {
     public class Uber : IHandler
     {
-        public async Task<bool> TryToHandleOrder(Order order)
+        public string ChangeOrderJSON(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> IsOrderMatching(Order order)
         {
             if (order.SystemType == SystemType.uber)
             {

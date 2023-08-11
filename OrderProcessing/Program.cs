@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using OrderProcessing.CoreLogic.Handlers;
 
 namespace OrderProcessing
 {

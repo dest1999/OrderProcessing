@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using OrderProcessing.CoreLogic.Handlers;
 
 namespace OrderProcessing
 {
@@ -32,6 +31,8 @@ namespace OrderProcessing
             builder.Services.AddScoped<IHandler, Talabat>();
             builder.Services.AddScoped<IHandler, Zomato>();
             builder.Services.AddScoped<IHandler, Uber>();
+
+            builder.Services.AddSingleton<IErrorLogger, ErrorLogger>();
             #endregion
 
 

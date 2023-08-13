@@ -15,23 +15,23 @@ namespace OrderProcessing
 
         [HttpPost("talabat")]
         public IActionResult CreateTalabat(string order)
-        {
+        {//TODO возможно следует добавить валидацию моделей, обработку верных/неверных заказов
             _inputOrderHandler.CreateNewOrderAsync(SystemType.talabat, order);
-            return Ok( order);
+            return Ok();
         }
 
         [HttpPost("zomato")]
         public IActionResult CreateZomato(string order)
         {
             _inputOrderHandler.CreateNewOrderAsync(SystemType.zomato, order);
-            return Ok(order);
+            return Ok();
         }
 
         [HttpPost("uber")]
         public IActionResult CreateUber(string order)
         {
             _inputOrderHandler.CreateNewOrderAsync(SystemType.uber, order);
-            return Ok(order);
+            return Ok();
         }
 
     }

@@ -32,9 +32,9 @@ namespace OrderProcessing
             builder.Services.AddScoped<IHandler, Zomato>();
             builder.Services.AddScoped<IHandler, Uber>();
 
-            builder.Services.AddSingleton<IErrorLogger, ErrorLogger>();
             #endregion
 
+            builder.Services.AddSingleton<IErrorLogger, ErrorLogger>();
 
             var app = builder.Build();
 

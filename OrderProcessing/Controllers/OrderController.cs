@@ -15,7 +15,7 @@ namespace OrderProcessing
 
         [HttpPost("talabat")]
         public IActionResult CreateTalabat(string order)
-        {//TODO возможно следует добавить валидацию моделей, обработку верных/неверных заказов
+        {//TODO возможно следует добавить валидацию моделей, обработку верных/неверных заказов 
             _inputOrderHandler.CreateNewOrderAsync(SystemType.talabat, order);
             return Ok();
         }
